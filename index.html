@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Название] — обучение и развитие команд</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#10161F;
+    --navy:#16233B;
+    --paper:#F4F1E9;
+    --paper-2:#EAE5D8;
+    --gold:#C88A3C;
+    --gold-soft:#E4C089;
+    --teal:#3D7373;
+    --white:#F7F5F0;
+    --line: rgba(247,245,240,0.14);
+    --line-dark: rgba(16,22,31,0.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Manrope', sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Unbounded', sans-serif;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    line-height:1.12;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+  section{padding:96px 0;}
+  @media (max-width:720px){
+    section{padding:64px 0;}
+    .wrap{padding:0 20px;}
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(244,241,233,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line-dark);
+  }
+  nav.wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:20px;padding-bottom:20px;
+  }
+  .logo{
+    font-family:'Unbounded';font-weight:700;font-size:19px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo .mark{
+    width:11px;height:11px;background:var(--gold);border-radius:2px;
+    display:inline-block;
+  }
+  .navlinks{display:flex;gap:32px;font-size:14px;font-weight:600;}
+  .navlinks a{opacity:0.75;transition:opacity .15s;}
+  .navlinks a:hover{opacity:1;}
+  .lang-toggle{
+    display:flex;gap:2px;font-size:12px;font-weight:700;
+    border:1px solid var(--line-dark);border-radius:20px;padding:4px;
+  }
+  .lang-toggle span{padding:5px 11px;border-radius:16px;}
+  .lang-toggle span.active{background:var(--ink);color:var(--white);}
+  .navcta{
+    font-size:13px;font-weight:700;background:var(--ink);color:var(--white);
+    padding:11px 20px;border-radius:8px;
+  }
+  @media (max-width:860px){ .navlinks{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding-top:64px;padding-bottom:72px;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;
+    align-items:end;
+  }
+  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr;gap:36px;align-items:start;} }
+  .eyebrow{
+    font-size:14px;font-weight:600;color:var(--teal);
+    margin-bottom:18px;
+  }
+  .hero h1{font-size:clamp(34px,5vw,58px);max-width:12ch;}
+  .hero p.lede{
+    font-size:18px;max-width:46ch;margin-top:22px;color:#3A3A34;
+  }
+  .hero-actions{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--ink);color:var(--white);font-weight:700;font-size:15px;
+    padding:15px 26px;border-radius:9px;
+  }
+  .btn-ghost{
+    border:1.5px solid var(--line-dark);font-weight:700;font-size:15px;
+    padding:14px 24px;border-radius:9px;
+  }
+  .hero-quote{
+    background:var(--navy);color:var(--white);border-radius:16px;
+    padding:32px;font-family:'Unbounded';font-size:19px;font-weight:600;
+    line-height:1.4;
+  }
+  .hero-quote .who{
+    font-family:'Manrope';font-weight:600;font-size:13px;color:var(--gold-soft);
+    margin-top:18px;
+  }
+
+  /* stats strip */
+  .stats{
+    border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);
+    padding:40px 0;
+  }
+  .stats .wrap{display:flex;gap:56px;flex-wrap:wrap;}
+  .stat b{
+    display:block;font-family:'Unbounded';font-size:30px;font-weight:700;
+  }
+  .stat span{font-size:14px;color:#5A5A50;}
+
+  /* ---------- EXPERTISE ---------- */
+  /* ---------- ADVANTAGES ---------- */
+  .adv-grid{
+    display:flex;flex-direction:column;gap:20px;
+  }
+  .adv-card{
+    border-radius:16px;padding:32px;
+  }
+  .adv-featured{
+    grid-column:1 / -1;
+    background:var(--navy);color:var(--white);
+    display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;
+    padding:36px;
+  }
+  .adv-featured .adv-icon{
+    width:46px;height:46px;color:var(--gold-soft);flex-shrink:0;
+  }
+  .adv-featured h3{font-size:22px;color:var(--white);}
+  .adv-featured p{color:#D7DAE2;margin-top:10px;font-size:15px;max-width:62ch;}
+  .adv-tag{
+    display:inline-block;font-size:12px;font-weight:700;color:var(--ink);
+    background:var(--gold-soft);padding:5px 12px;border-radius:20px;margin-top:14px;
+  }
+  @media (max-width:560px){ .adv-featured{grid-template-columns:1fr;} }
+  .adv-card:not(.adv-featured){
+    border:1px solid var(--line-dark);background:var(--white);
+    display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;
+  }
+  @media (max-width:560px){ .adv-card:not(.adv-featured){grid-template-columns:1fr;} }
+  .adv-card:not(.adv-featured) .adv-icon{
+    width:30px;height:30px;color:var(--teal);flex-shrink:0;
+  }
+  .adv-card:not(.adv-featured) h3{font-size:18px;}
+  .adv-card:not(.adv-featured) p{font-size:14px;color:#59594F;margin-top:8px;}
+
+  .section-head{max-width:60ch;margin-bottom:48px;}
+  .section-head .eyebrow{margin-bottom:14px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,38px);}
+  .section-head p{margin-top:14px;font-size:16px;color:#4A4A40;}
+
+  .expertise-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--line-dark);border:1px solid var(--line-dark);border-radius:14px;
+    overflow:hidden;
+  }
+  @media (max-width:860px){ .expertise-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .expertise-grid{grid-template-columns:1fr;} }
+  .exp-card{background:var(--paper);padding:30px 26px;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;}
+  .exp-card h3{font-size:19px;margin-top:16px;}
+  .exp-card p{font-size:14px;color:#59594F;margin-top:8px;}
+  .exp-icon{width:34px;height:34px;color:var(--gold);}
+
+  /* ---------- FOR WHOM: staircase ---------- */
+  .levels{background:var(--navy);color:var(--white);}
+  .levels .section-head p{color:#C7CBD6;}
+  .staircase{display:flex;flex-direction:column;gap:2px;margin-top:8px;}
+  .step-row{
+    display:grid;grid-template-columns:220px 1fr;gap:28px;
+    align-items:center;padding:26px 0;border-top:1px solid var(--line);
+  }
+  .step-row:last-child{border-bottom:1px solid var(--line);}
+  @media (max-width:700px){ .step-row{grid-template-columns:1fr;gap:8px;} }
+  .step-tag{
+    font-family:'Unbounded';font-weight:600;font-size:15px;color:var(--gold-soft);
+    display:flex;align-items:center;gap:12px;
+  }
+  .step-bar{height:6px;border-radius:3px;background:var(--gold);}
+  .step-row p{font-size:15px;color:#D7DAE2;max-width:58ch;}
+
+  /* ---------- FORMATS ---------- */
+  .formats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media (max-width:820px){ .formats-grid{grid-template-columns:1fr;} }
+  .format-card{
+    border:1px solid var(--line-dark);border-radius:14px;padding:28px;
+    background:var(--white);
+  }
+  .format-card .idx{font-family:'Unbounded';font-size:13px;color:var(--teal);font-weight:700;}
+  .format-card h3{font-size:19px;margin-top:14px;}
+  .format-card p{font-size:14px;color:#59594F;margin-top:10px;}
+
+  /* ---------- ABOUT ---------- */
+  .about{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;align-items:center;}
+  @media (max-width:860px){ .about{grid-template-columns:1fr;} }
+  .about-photo{
+    background:var(--paper-2);border-radius:16px;aspect-ratio:4/5;
+    display:flex;align-items:center;justify-content:center;
+    color:#8A8578;font-size:14px;font-weight:600;border:1px dashed #B9B4A2;
+  }
+  .about h2{font-size:clamp(24px,3vw,32px);}
+  .about p{margin-top:16px;font-size:16px;color:#4A4A40;max-width:56ch;}
+  .pill-row{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;}
+  .pill{
+    font-size:13px;font-weight:700;border:1px solid var(--line-dark);
+    padding:8px 14px;border-radius:20px;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact{background:var(--ink);color:var(--white);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;}
+  @media (max-width:860px){ .contact-grid{grid-template-columns:1fr;gap:36px;} }
+  .contact h2{font-size:clamp(26px,3.4vw,40px);max-width:14ch;}
+  .contact p.lede{margin-top:16px;color:#C7CBD6;max-width:44ch;}
+  .contact-links{margin-top:28px;display:flex;flex-direction:column;gap:14px;}
+  .contact-links a{
+    display:flex;align-items:center;gap:12px;font-weight:600;font-size:15px;
+    padding-bottom:12px;border-bottom:1px solid var(--line);
+  }
+  form{display:flex;flex-direction:column;gap:14px;}
+  .field label{font-size:13px;font-weight:600;color:#C7CBD6;display:block;margin-bottom:6px;}
+  .field input, .field textarea{
+    width:100%;background:transparent;border:1px solid var(--line);
+    border-radius:9px;padding:13px 14px;color:var(--white);font-family:'Manrope';font-size:14px;
+  }
+  .field textarea{resize:vertical;min-height:88px;}
+  .field input::placeholder,.field textarea::placeholder{color:#7A8090;}
+  .submit-btn{
+    margin-top:6px;background:var(--gold);color:var(--ink);font-weight:700;
+    padding:15px 24px;border-radius:9px;border:none;font-family:'Manrope';font-size:15px;
+    cursor:pointer;width:fit-content;
+  }
+
+  footer{padding:28px 0;border-top:1px solid var(--line-dark);}
+  footer .wrap{display:flex;justify-content:space-between;font-size:13px;color:#7A7A6E;flex-wrap:wrap;gap:10px;}
+
+  .placeholder-note{
+    font-size:11px;color:var(--teal);font-weight:700;letter-spacing:0.02em;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo"><span class="mark"></span>[Название]</div>
+    <div class="navlinks">
+      <a href="#expertise">Экспертиза</a>
+      <a href="#levels">Для кого</a>
+      <a href="#formats">Форматы</a>
+      <a href="#about">О нас</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="lang-toggle"><span class="active">RU</span><span>ҚАЗ</span></div>
+      <a class="navcta" href="#contact">Обсудить программу</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Обучение и развитие команд · KZ / RU</div>
+      <h1>Превращаем теорию в навыки, которые дают результат</h1>
+      <p class="lede">Живые тренинги и курсы по сервису, продажам, командообразованию и лидерству — программа собирается под вашу задачу, а не берётся с полки.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#contact">Обсудить программу</a>
+        <a class="btn-ghost" href="#formats">Посмотреть форматы</a>
+      </div>
+    </div>
+    <div class="hero-quote">
+      «Хорошая программа обучения работает не потому, что красиво оформлена, а потому что меняет поведение людей на рабочем месте.»
+      <div class="who">Философия команды [Название]</div>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><b>16 000+</b><span>сотрудников в обучении</span></div>
+    <div class="stat"><b>7–10 лет</b><span>опыта в команде</span></div>
+    <div class="stat"><b>4 уровня</b><span>от новичков до топ-менеджмента</span></div>
+    <div class="stat"><b>KZ / RU</b><span>обучение на двух языках</span></div>
+  </div>
+</div>
+
+<section id="advantages">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Почему мы</div>
+      <h2>Не шаблон, а программа под вашу задачу</h2>
+      <p>Мы намеренно не работаем по одному сценарию для всех — и это касается не только содержания, но и языка обучения.</p>
+    </div>
+    <div class="adv-grid">
+      <div class="adv-card adv-featured">
+        <svg class="adv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4h13v14H8z"/><path d="M3 8h13v14H3z"/><path d="M6 12h7M6 16h7"/></svg>
+        <div>
+          <h3>Тренinги на казахском языке</h3>
+          <p>На рынке немного тренеров, способных провести полноценную живую программу на казахском — без потери глубины и качества материала. Мы делаем это регулярно, наравне с русскоязычными группами.</p>
+          <span class="adv-tag">Редкость на рынке</span>
+        </div>
+      </div>
+      <div class="adv-card">
+        <svg class="adv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12c2-4 6-6 8-6s6 2 8 6c-2 4-6 6-8 6s-6-2-8-6z"/><circle cx="12" cy="12" r="2.4"/></svg>
+        <div>
+          <h3>Гибкость программы</h3>
+          <p>Подстраиваем содержание, кейсы и длительность под конкретную задачу и уровень аудитории — а не подгоняем задачу под готовый шаблон.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="expertise">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Экспертиза</div>
+      <h2>Четыре направления, одна методология</h2>
+      <p>Каждая программа строится вокруг реальных рабочих ситуаций, а не абстрактной теории — с проработкой кейсов и разбором живых сценариев.</p>
+    </div>
+    <div class="expertise-grid">
+      <div class="exp-card">
+        <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l1.8 4.9L19 9l-4.9 1.8L12 15l-1.8-4.2L5 9l5.2-1.1L12 3z"/><path d="M5 17l.9 2.4L8 20l-2.1.7L5 23l-.9-2.3L2 20l2.1-.6L5 17z"/></svg>
+        <div>
+          <h3>Сервис</h3>
+          <p>Клиентский опыт, работа с ожиданиями и сложными ситуациями в обслуживании.</p>
+        </div>
+      </div>
+      <div class="exp-card">
+        <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l5-5 4 4 8-9"/><path d="M15 7h5v5"/></svg>
+        <div>
+          <h3>Продажи</h3>
+          <p>Навыки выявления потребности, работы с возражениями и увеличения конверсии.</p>
+        </div>
+      </div>
+      <div class="exp-card">
+        <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="9" r="3"/><circle cx="17" cy="9" r="3"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5"/><path d="M12 20c0-3 2.2-5 5-5s5 2 5 5"/></svg>
+        <div>
+          <h3>Командообразование</h3>
+          <p>Взаимодействие внутри команд, снятие конфликтов, совместная работа на результат.</p>
+        </div>
+      </div>
+      <div class="exp-card">
+        <svg class="exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 4v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V7l7-4z"/></svg>
+        <div>
+          <h3>Лидерство</h3>
+          <p>Управленческие навыки, обратная связь, принятие решений и развитие подчинённых.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="levels" class="levels">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Для кого</div>
+      <h2>Программы, адаптированные под уровень аудитории</h2>
+      <p>Один и тот же навык звучит по-разному для новичка и для руководителя — поэтому каждая программа перестраивается под аудиторию, а не копируется.</p>
+    </div>
+    <div class="staircase">
+      <div class="step-row">
+        <div class="step-tag"><span class="step-bar" style="width:28px;"></span>Линейный персонал</div>
+        <p>Базовые стандарты сервиса и продаж, отработка сценариев на практике, минимум теории.</p>
+      </div>
+      <div class="step-row">
+        <div class="step-tag"><span class="step-bar" style="width:44px;"></span>Специалисты</div>
+        <p>Более сложные ситуации: возражения, конфликтные клиенты, работа в команде.</p>
+      </div>
+      <div class="step-row">
+        <div class="step-tag"><span class="step-bar" style="width:60px;"></span>Руководители среднего звена</div>
+        <p>Постановка задач, обратная связь, развитие сотрудников, управление показателями.</p>
+      </div>
+      <div class="step-row">
+        <div class="step-tag"><span class="step-bar" style="width:76px;"></span>Топ-менеджмент</div>
+        <p>Стратегические решения, управление изменениями, лидерство в масштабе организации.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="formats">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Форматы</div>
+      <h2>Живое обучение и готовые курсы</h2>
+      <p>Можно заказать разовый тренинг, курс под ключ или постоянное сопровождение — под задачу и бюджет.</p>
+    </div>
+    <div class="formats-grid">
+      <div class="format-card">
+        <div class="idx">Формат 1</div>
+        <h3>Живые тренинги</h3>
+        <p>Очно или онлайн, с разбором реальных рабочих кейсов вашей команды и практикой на месте.</p>
+      </div>
+      <div class="format-card">
+        <div class="idx">Формат 2</div>
+        <h3>Курсы под ключ</h3>
+        <p>Сценарий, съёмка, озвучка и монтаж — готовый видеокурс с публикацией на удобной платформе.</p>
+      </div>
+      <div class="format-card">
+        <div class="idx">Формат 3</div>
+        <h3>Сопровождение</h3>
+        <p>Регулярные встречи, разбор внедрения навыков и корректировка программы по ходу работы.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <div class="about-photo">Фото команды<br>[добавить позже]</div>
+    <div>
+      <div class="eyebrow">О нас</div>
+      <h2>Команда с опытом внутри крупного бизнеса</h2>
+      <p>Прежде чем начать работать с внешними клиентами, мы выстраивали системное обучение внутри крупной компании — и перенесли этот подход в работу с новыми командами.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <h2>Обсудим программу под вашу команду</h2>
+      <p class="lede">Расскажите о задаче — предложим формат, сроки и стоимость в течение 1–2 дней.</p>
+      <div class="contact-links">
+        <a href="#">Telegram — [@username]</a>
+        <a href="#">WhatsApp — [+7 ___ ___ __ __]</a>
+        <a href="#">E-mail — [mail@example.com]</a>
+      </div>
+    </div>
+    <form onsubmit="return false;">
+      <div class="field">
+        <label>Имя</label>
+        <input type="text" placeholder="Как к вам обращаться">
+      </div>
+      <div class="field">
+        <label>Компания</label>
+        <input type="text" placeholder="Название компании">
+      </div>
+      <div class="field">
+        <label>Телефон или e-mail</label>
+        <input type="text" placeholder="Для связи">
+      </div>
+      <div class="field">
+        <label>Задача</label>
+        <textarea placeholder="Коротко: тема, аудитория, сроки"></textarea>
+      </div>
+      <button class="submit-btn" type="submit">Отправить заявку</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 [Название]. Прототип лендинга.</span>
+    <span class="placeholder-note">НАЗВАНИЕ / ЛОГОТИП / КОНТАКТЫ — ЗАПОЛНИТЬ</span>
+  </div>
+</footer>
+
+</body>
+</html>
